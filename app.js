@@ -1,77 +1,59 @@
-const storageKey = "anytime-shibuya-workout-log-v1";
+const storageKey = "simple-workout-log-v1";
 
-const shibuyaEquipment = [
+const workoutPresets = [
   {
-    area: "マシン",
-    equipment: "Life Fitness チェスト系",
-    muscles: "胸・肩・三頭",
-    exercises: ["チェストプレス", "インクラインチェストプレス", "ペックフライ"],
+    area: "胸",
+    equipment: "プレス系",
+    muscles: "胸・肩前部・三頭",
+    exercises: ["ベンチプレス", "ダンベルプレス", "チェストプレス", "インクラインプレス", "プッシュアップ"],
   },
   {
-    area: "マシン",
-    equipment: "Life Fitness 背中系",
+    area: "背中",
+    equipment: "プル系",
     muscles: "背中・二頭",
-    exercises: ["ラットプルダウン", "シーテッドロウ", "ローイング"],
+    exercises: ["ラットプルダウン", "シーテッドロウ", "ワンハンドロウ", "懸垂", "デッドリフト"],
   },
   {
-    area: "マシン",
-    equipment: "Life Fitness 肩系",
+    area: "肩",
+    equipment: "ショルダー系",
     muscles: "肩・三頭",
-    exercises: ["ショルダープレス", "リアデルト"],
+    exercises: ["ショルダープレス", "サイドレイズ", "リアレイズ", "フロントレイズ", "フェイスプル"],
   },
   {
-    area: "マシン",
-    equipment: "Life Fitness 脚系",
+    area: "脚",
+    equipment: "スクワット / レッグ系",
     muscles: "脚・臀部",
-    exercises: ["レッグプレス", "レッグエクステンション", "レッグカール", "ヒップアブダクション", "ヒップアダクション"],
+    exercises: ["スクワット", "レッグプレス", "ランジ", "レッグエクステンション", "レッグカール"],
   },
   {
-    area: "マシン",
-    equipment: "Life Fitness 体幹系",
+    area: "腕",
+    equipment: "アーム系",
+    muscles: "二頭・三頭・前腕",
+    exercises: ["ダンベルカール", "ケーブルカール", "トライセプスプレスダウン", "フレンチプレス", "リストカール"],
+  },
+  {
+    area: "体幹",
+    equipment: "腹筋 / 体幹",
     muscles: "腹部・体幹",
-    exercises: ["アブドミナル", "トーソローテーション", "バックエクステンション"],
+    exercises: ["クランチ", "アブローラー", "プランク", "レッグレイズ", "バックエクステンション"],
   },
   {
-    area: "フリーウェイト",
-    equipment: "パワーラック",
+    area: "全身",
+    equipment: "フリーウェイト",
     muscles: "全身",
-    exercises: ["スクワット", "ベンチプレス", "デッドリフト", "オーバーヘッドプレス"],
-  },
-  {
-    area: "フリーウェイト",
-    equipment: "ダンベル / ベンチ",
-    muscles: "全身",
-    exercises: ["ダンベルプレス", "インクラインダンベルプレス", "ダンベルロウ", "ダンベルカール", "サイドレイズ"],
-  },
-  {
-    area: "ファンクショナル",
-    equipment: "ケーブルマシン",
-    muscles: "全身",
-    exercises: ["ケーブルフライ", "ケーブルロウ", "トライセプスプレスダウン", "フェイスプル", "ケーブルカール"],
-  },
-  {
-    area: "ファンクショナル",
-    equipment: "バトルロープ / バランスボール",
-    muscles: "心肺・体幹",
-    exercises: ["バトルロープ", "バランスボールクランチ", "プランク"],
+    exercises: ["デッドリフト", "クリーン", "スラスター", "ケトルベルスイング", "ファーマーズウォーク"],
   },
   {
     area: "有酸素",
-    equipment: "トレッドミル",
+    equipment: "カーディオ",
     muscles: "心肺",
-    exercises: ["ウォーキング", "ランニング", "インターバル走"],
-  },
-  {
-    area: "有酸素",
-    equipment: "クロストレーナー / バイク",
-    muscles: "心肺・下半身",
-    exercises: ["クロストレーナー", "アップライトバイク", "リカンベントバイク"],
+    exercises: ["ランニング", "ウォーキング", "バイク", "クロストレーナー", "インターバル"],
   },
   {
     area: "ケア",
-    equipment: "ストレッチ / マッサージ器具",
+    equipment: "ストレッチ",
     muscles: "回復",
-    exercises: ["ストレッチ", "フォームローラー", "マッサージ"],
+    exercises: ["ストレッチ", "フォームローラー", "モビリティ", "軽い有酸素", "休養"],
   },
 ];
 
@@ -142,7 +124,7 @@ function calculateVolume(workout) {
 }
 
 function selectedEquipment() {
-  return shibuyaEquipment.find((item) => item.equipment === fields.equipment.value);
+  return workoutPresets.find((item) => item.equipment === fields.equipment.value);
 }
 
 function fillSelect(select, values) {
@@ -156,12 +138,12 @@ function fillSelect(select, values) {
 }
 
 function populateAreas() {
-  fillSelect(fields.area, [...new Set(shibuyaEquipment.map((item) => item.area))]);
+  fillSelect(fields.area, [...new Set(workoutPresets.map((item) => item.area))]);
   populateEquipment();
 }
 
 function populateEquipment() {
-  const currentItems = shibuyaEquipment.filter((item) => item.area === fields.area.value);
+  const currentItems = workoutPresets.filter((item) => item.area === fields.area.value);
   fillSelect(fields.equipment, currentItems.map((item) => item.equipment));
   populateExercises();
 }
@@ -174,7 +156,7 @@ function populateExercises() {
 function renderGuide() {
   const guide = document.querySelector("#equipmentGuide");
   guide.innerHTML = "";
-  shibuyaEquipment.forEach((item) => {
+  workoutPresets.forEach((item) => {
     const card = document.createElement("article");
     card.className = "guide-item";
     card.innerHTML = `

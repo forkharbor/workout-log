@@ -3,19 +3,19 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>エニタイム渋谷店 Workout Log</title>
+    <title>筋トレ記録</title>
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="apple-touch-icon" href="logo.png">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <main class="app-shell">
-      <section class="workspace" aria-label="エニタイムフィットネス渋谷店向け筋トレ記録">
+      <section class="workspace" aria-label="筋トレ記録">
         <header class="topbar">
           <div>
-            <p class="eyebrow">Anytime Fitness Shibuya</p>
-            <h1>渋谷店 筋トレ記録</h1>
-            <p class="store-meta">渋谷サクラステージ SHIBUYAサイド B1-1F / Life Fitness中心</p>
+            <p class="eyebrow">Training Log</p>
+            <h1>筋トレ記録</h1>
+            <p class="store-meta">今日の種目、重量、回数をシンプルに残すログ</p>
           </div>
           <div class="today-card">
             <span id="todayLabel"></span>
@@ -29,7 +29,7 @@
             <strong id="weeklyVolume">0 kg</strong>
           </article>
           <article class="metric">
-            <span>直近の器具数</span>
+            <span>直近の種目数</span>
             <strong id="equipmentCount">0</strong>
           </article>
           <article class="metric">
@@ -52,11 +52,11 @@
 
             <div class="input-row two">
               <label>
-                エリア
+                部位
                 <select id="areaInput" required></select>
               </label>
               <label>
-                器具
+                メニュー
                 <select id="equipmentInput" required></select>
               </label>
             </div>
@@ -91,9 +91,9 @@
 
           <section class="panel equipment-panel">
             <div class="panel-heading">
-              <h2>渋谷店プリセット</h2>
+              <h2>種目プリセット</h2>
             </div>
-            <p class="source-note">公式の渋谷店ページに個別マシン一覧がないため、公式ページで確認できる店舗情報と、渋谷店紹介で挙がる器具を中心にしています。</p>
+            <p class="source-note">よく使う筋トレ種目を部位別にまとめています。ジムや自宅など場所を選ばず記録できます。</p>
             <div id="equipmentGuide" class="equipment-guide"></div>
           </section>
 

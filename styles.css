@@ -1,16 +1,16 @@
 :root {
   color-scheme: light;
-  --bg: #f4f6f2;
+  --bg: #eef9fd;
   --surface: #ffffff;
-  --ink: #18202a;
-  --muted: #687481;
-  --line: #dce2dc;
-  --accent: #0e8f78;
-  --accent-dark: #096d5b;
-  --steel: #2d4054;
-  --warm: #8f6727;
+  --ink: #123040;
+  --muted: #5f7887;
+  --line: #cfe5ef;
+  --accent: #3aaed8;
+  --accent-dark: #157fa8;
+  --steel: #277fa4;
+  --warm: #3b9fc1;
   --danger: #c74444;
-  --shadow: 0 18px 48px rgba(24, 32, 42, 0.1);
+  --shadow: 0 18px 48px rgba(21, 127, 168, 0.12);
 }
 
 * {
@@ -20,8 +20,8 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: linear-gradient(135deg, rgba(14, 143, 120, 0.13), transparent 36%),
-    linear-gradient(315deg, rgba(143, 103, 39, 0.12), transparent 34%), var(--bg);
+  background: linear-gradient(135deg, rgba(111, 207, 234, 0.3), transparent 38%),
+    linear-gradient(315deg, rgba(58, 174, 216, 0.18), transparent 34%), var(--bg);
   color: var(--ink);
   font-family: "Segoe UI", "Noto Sans JP", system-ui, sans-serif;
 }
@@ -82,8 +82,8 @@ p {
 }
 
 h1 {
-  font-size: 3.4rem;
-  line-height: 1;
+  font-size: 2.55rem;
+  line-height: 1.08;
 }
 
 .today-card,
@@ -123,7 +123,7 @@ h1 {
   min-height: 104px;
   padding: 18px;
   border-radius: 8px;
-  background: #1f2933;
+  background: #145f80;
   color: #fff;
   display: grid;
   align-content: space-between;
@@ -185,9 +185,9 @@ input,
 select,
 textarea {
   width: 100%;
-  border: 1px solid #cbd4cc;
+  border: 1px solid #c3deea;
   border-radius: 8px;
-  background: #fbfcfa;
+  background: #f8fdff;
   color: var(--ink);
   outline: none;
 }
@@ -208,7 +208,7 @@ input:focus,
 select:focus,
 textarea:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(14, 143, 120, 0.16);
+  box-shadow: 0 0 0 3px rgba(58, 174, 216, 0.18);
 }
 
 .input-row {
@@ -251,7 +251,7 @@ textarea:focus {
 .icon-button {
   width: 40px;
   height: 40px;
-  background: #e8eee8;
+  background: #e2f4fb;
   color: var(--ink);
   font-size: 1.15rem;
 }
@@ -285,7 +285,7 @@ textarea:focus {
   margin-bottom: 8px;
   padding: 4px 8px;
   border-radius: 8px;
-  background: #eef6f3;
+  background: #e6f6fc;
   color: var(--accent-dark);
   font-size: 0.78rem;
   font-weight: 800;
@@ -315,7 +315,7 @@ textarea:focus {
   gap: 6px;
   padding: 4px;
   border-radius: 8px;
-  background: #edf1ed;
+  background: #e5f4fa;
 }
 
 .filter-button {
@@ -388,7 +388,7 @@ time {
 .workout-stats span {
   padding: 7px 10px;
   border-radius: 8px;
-  background: #eef6f3;
+  background: #e6f6fc;
   color: var(--accent-dark);
   font-size: 0.86rem;
   font-weight: 800;
@@ -403,7 +403,7 @@ time {
   display: grid;
   place-items: center;
   padding: 28px;
-  border: 1px dashed #bdc7bf;
+  border: 1px dashed #9fcddd;
   border-radius: 8px;
   color: var(--muted);
   text-align: center;
