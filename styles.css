@@ -340,11 +340,62 @@ textarea:focus {
   padding: 0 18px 18px;
 }
 
+.history-day {
+  --day-accent: #3aaed8;
+  --day-tint: #edf9fd;
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid var(--day-accent);
+  border-radius: 10px;
+  background: var(--day-tint);
+}
+
+.history-day[data-day-color="1"] {
+  --day-accent: #60a86c;
+  --day-tint: #f0f9f1;
+}
+
+.history-day[data-day-color="2"] {
+  --day-accent: #bc8b37;
+  --day-tint: #fff8eb;
+}
+
+.history-day[data-day-color="3"] {
+  --day-accent: #9a78c7;
+  --day-tint: #f7f2fc;
+}
+
+.history-day-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--ink);
+}
+
+.history-day-heading h3 {
+  font-size: 1rem;
+}
+
+.history-day-heading span {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.history-day-items {
+  display: grid;
+  gap: 10px;
+}
+
 .workout-item {
   display: grid;
   gap: 12px;
   padding: 16px;
   border: 1px solid var(--line);
+  border-left: 5px solid var(--day-accent);
   border-radius: 8px;
   background: #fff;
 }
@@ -453,6 +504,11 @@ time {
 
   h1 {
     font-size: 2.45rem;
+  }
+
+  .history-day-heading {
+    display: grid;
+    gap: 3px;
   }
 
   .summary-grid,

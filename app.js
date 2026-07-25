@@ -210,26 +210,47 @@ function renderHistory() {
     return;
   }
 
+  const workoutsByDate = new Map();
   items.forEach((workout) => {
-    const node = template.content.firstElementChild.cloneNode(true);
-    const date = new Date(`${workout.date}T00:00:00`);
-    node.dataset.id = workout.id;
-    node.querySelector("time").textContent = fullDateFormatter.format(date);
-    node.querySelector("h3").textContent = workout.exercise;
-    node.querySelector(".machine-name").textContent = [workout.area, workout.equipment].filter(Boolean).join(" / ");
-    node.querySelector(".workout-stats").innerHTML = `
-      <span>${formatKg(workout.weight)}</span>
-      <span>${workout.reps}回 x ${workout.sets}セット</span>
-      <span>合計 ${formatKg(calculateVolume(workout))}</span>
-    `;
+    if (!workoutsByDate.has(workout.date)) workoutsByDate.set(workout.date, []);
+    workoutsByDate.get(workout.date).push(workout);
+  });
 
-    const note = node.querySelector(".workout-note");
-    if (workout.note) {
-      note.textContent = workout.note;
-    } else {
-      note.remove();
-    }
-    historyList.append(node);
+  [...workoutsByDate.entries()].forEach(([dateString, dayWorkouts], dayIndex) => {
+    const day = document.createElement("section");
+    const dayVolume = dayWorkouts.reduce((total, workout) => total + calculateVolume(workout), 0);
+    day.className = "history-day";
+    day.dataset.dayColor = dayIndex % 4;
+    day.innerHTML = `
+      <div class="history-day-heading">
+        <h3>${fullDateFormatter.format(new Date(`${dateString}T00:00:00`))}</h3>
+        <span>${dayWorkouts.length}件・合計 ${formatKg(dayVolume)}</span>
+      </div>
+      <div class="history-day-items"></div>
+    `;
+    const dayItems = day.querySelector(".history-day-items");
+
+    dayWorkouts.forEach((workout) => {
+      const node = template.content.firstElementChild.cloneNode(true);
+      node.dataset.id = workout.id;
+      node.querySelector("time").remove();
+      node.querySelector("h3").textContent = workout.exercise;
+      node.querySelector(".machine-name").textContent = [workout.area, workout.equipment].filter(Boolean).join(" / ");
+      node.querySelector(".workout-stats").innerHTML = `
+        <span>${formatKg(workout.weight)}</span>
+        <span>${workout.reps}回 x ${workout.sets}セット</span>
+        <span>合計 ${formatKg(calculateVolume(workout))}</span>
+      `;
+
+      const note = node.querySelector(".workout-note");
+      if (workout.note) {
+        note.textContent = workout.note;
+      } else {
+        note.remove();
+      }
+      dayItems.append(node);
+    });
+    historyList.append(day);
   });
 }
 
