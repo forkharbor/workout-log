@@ -92,7 +92,16 @@ function loadWorkouts() {
     const current = localStorage.getItem(storageKey);
     const anytime = localStorage.getItem("anytime-workout-log-records-v2");
     const original = localStorage.getItem("workout-log-records-v1");
-    return current ? JSON.parse(current) : anytime ? JSON.parse(anytime) : original ? JSON.parse(original) : [];
+    const stored = current ? JSON.parse(current) : anytime ? JSON.parse(anytime) : original ? JSON.parse(original) : [];
+    if (!Array.isArray(stored)) return [];
+
+    const normalized = stored.map((workout) => ({
+      ...workout,
+      id: workout.id == null ? crypto.randomUUID() : String(workout.id),
+      createdAt: workout.createdAt || `${workout.date}T00:00:00.000Z`,
+    }));
+    localStorage.setItem(storageKey, JSON.stringify(normalized));
+    return normalized;
   } catch {
     return [];
   }
