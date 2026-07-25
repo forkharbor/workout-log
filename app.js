@@ -61,6 +61,8 @@ const form = document.querySelector("#workoutForm");
 const historyList = document.querySelector("#historyList");
 const template = document.querySelector("#workoutItemTemplate");
 const filterButtons = document.querySelectorAll(".filter-button");
+const formTitle = document.querySelector("#formTitle");
+const submitButton = document.querySelector("#submitButton");
 
 const fields = {
   date: document.querySelector("#dateInput"),
@@ -75,6 +77,7 @@ const fields = {
 
 let workouts = loadWorkouts();
 let activeFilter = "all";
+let editingId = null;
 
 const dateFormatter = new Intl.DateTimeFormat("ja-JP", { month: "long", day: "numeric", weekday: "short" });
 const fullDateFormatter = new Intl.DateTimeFormat("ja-JP", { year: "numeric", month: "long", day: "numeric", weekday: "short" });
@@ -222,17 +225,48 @@ function renderHistory() {
 }
 
 function resetForm() {
+  editingId = null;
   form.reset();
+  formTitle.textContent = "セット記録";
+  submitButton.textContent = "記録する";
   fields.date.value = getTodayString();
   fields.sets.value = 3;
   populateAreas();
 }
 
+function selectValue(select, value) {
+  if (![...select.options].some((option) => option.value === value)) {
+    const option = document.createElement("option");
+    option.value = value;
+    option.textContent = value;
+    select.append(option);
+  }
+  select.value = value;
+}
+
+function editWorkout(workout) {
+  editingId = workout.id;
+  fields.date.value = workout.date;
+  selectValue(fields.area, workout.area);
+  populateEquipment();
+  selectValue(fields.equipment, workout.equipment);
+  populateExercises();
+  selectValue(fields.exercise, workout.exercise);
+  fields.weight.value = workout.weight;
+  fields.reps.value = workout.reps;
+  fields.sets.value = workout.sets;
+  fields.note.value = workout.note || "";
+  formTitle.textContent = "履歴を編集";
+  submitButton.textContent = "変更を保存";
+  form.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
 form.addEventListener("submit", (event) => {
   event.preventDefault();
 
+  const previousWorkout = workouts.find((workout) => workout.id === editingId);
   const workout = {
-    id: crypto.randomUUID(),
+    id: editingId || crypto.randomUUID(),
     date: fields.date.value,
     area: fields.area.value,
     equipment: fields.equipment.value,
@@ -241,10 +275,13 @@ form.addEventListener("submit", (event) => {
     reps: Number(fields.reps.value),
     sets: Number(fields.sets.value),
     note: fields.note.value.trim(),
-    createdAt: new Date().toISOString(),
+    createdAt: previousWorkout?.createdAt || new Date().toISOString(),
   };
 
-  workouts = [workout, ...workouts].sort((a, b) => b.date.localeCompare(a.date) || b.createdAt.localeCompare(a.createdAt));
+  workouts = editingId
+    ? workouts.map((current) => (current.id === editingId ? workout : current))
+    : [workout, ...workouts];
+  workouts.sort((a, b) => b.date.localeCompare(a.date) || b.createdAt.localeCompare(a.createdAt));
   saveWorkouts();
   renderHistory();
   updateSummary();
@@ -256,13 +293,22 @@ fields.area.addEventListener("change", populateEquipment);
 fields.equipment.addEventListener("change", populateExercises);
 
 historyList.addEventListener("click", (event) => {
-  const button = event.target.closest(".delete-button");
-  if (!button) return;
-  const item = button.closest(".workout-item");
-  workouts = workouts.filter((workout) => workout.id !== item.dataset.id);
-  saveWorkouts();
-  renderHistory();
-  updateSummary();
+  const item = event.target.closest(".workout-item");
+  if (!item) return;
+
+  if (event.target.closest(".edit-button")) {
+    const workout = workouts.find((current) => current.id === item.dataset.id);
+    if (workout) editWorkout(workout);
+    return;
+  }
+
+  if (event.target.closest(".delete-button")) {
+    workouts = workouts.filter((workout) => workout.id !== item.dataset.id);
+    if (editingId === item.dataset.id) resetForm();
+    saveWorkouts();
+    renderHistory();
+    updateSummary();
+  }
 });
 
 filterButtons.forEach((button) => {

@@ -369,10 +369,27 @@ time {
   font-size: 0.9rem;
 }
 
+.history-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.edit-button,
 .delete-button {
   flex: 0 0 auto;
-  width: 34px;
   height: 34px;
+}
+
+.edit-button {
+  padding: 0 12px;
+  background: #e6f6fc;
+  color: var(--accent-dark);
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.delete-button {
+  width: 34px;
   background: #f8e7e7;
   color: var(--danger);
   font-size: 1.25rem;
