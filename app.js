@@ -55,6 +55,224 @@ const workoutPresets = [
     muscles: "回復",
     exercises: ["ストレッチ", "フォームローラー", "モビリティ", "軽い有酸素", "休養"],
   },
+  {
+    area: "脚",
+    equipment: "アブダクター/アダクター",
+    muscles: "ヒップ・内もも",
+    exercises: ["ヒップアブダクション", "ヒップアダクション"],
+  },
+  {
+    area: "脚",
+    equipment: "レッグエクステンション/カール",
+    muscles: "太もも",
+    exercises: ["レッグエクステンション", "レッグカール"],
+  },
+  {
+    area: "脚",
+    equipment: "シーテッドレッグプレス",
+    muscles: "脚",
+    exercises: ["シーテッドレッグプレス"],
+  },
+  {
+    area: "背中",
+    equipment: "アシストディップチン",
+    muscles: "背中・腕",
+    exercises: ["アシストチンニング", "アシストディップ"],
+  },
+  {
+    area: "背中",
+    equipment: "ラットプルダウン/ロウ・ロー",
+    muscles: "背中",
+    exercises: ["ラットプルダウン", "ロウ・ロー"],
+  },
+  {
+    area: "胸",
+    equipment: "チェストプレス",
+    muscles: "腕・胸",
+    exercises: ["チェストプレス"],
+  },
+  {
+    area: "背中",
+    equipment: "シーテッドロー",
+    muscles: "背中",
+    exercises: ["シーテッドロー"],
+  },
+  {
+    area: "胸",
+    equipment: "リアデルトイド/フライ",
+    muscles: "胸・背中",
+    exercises: ["ペックフライ", "リアデルトイド"],
+  },
+  {
+    area: "肩",
+    equipment: "ショルダープレス",
+    muscles: "肩・腕",
+    exercises: ["ショルダープレス"],
+  },
+  {
+    area: "体幹",
+    equipment: "アジャスタブルディクラインベンチ",
+    muscles: "腹部",
+    exercises: ["デクラインクランチ", "デクラインシットアップ"],
+  },
+  {
+    area: "体幹",
+    equipment: "アブドミナル",
+    muscles: "腹部",
+    exercises: ["アブドミナルクランチ"],
+  },
+  {
+    area: "体幹",
+    equipment: "トーソローテーション",
+    muscles: "腹部",
+    exercises: ["トーソローテーション"],
+  },
+  {
+    area: "背中",
+    equipment: "バックエクステンション",
+    muscles: "背中",
+    exercises: ["バックエクステンション"],
+  },
+  {
+    area: "有酸素",
+    equipment: "アセントトレーナー",
+    muscles: "心肺・全身",
+    details: "1台",
+    exercises: ["アセントトレーナー"],
+  },
+  {
+    area: "有酸素",
+    equipment: "アップライトバイク",
+    muscles: "心肺・脚",
+    details: "2台",
+    exercises: ["アップライトバイク"],
+  },
+  {
+    area: "有酸素",
+    equipment: "リカンベントバイク",
+    muscles: "心肺・脚",
+    details: "1台",
+    exercises: ["リカンベントバイク"],
+  },
+  {
+    area: "有酸素",
+    equipment: "トレッドミル",
+    muscles: "心肺・脚",
+    details: "8台",
+    exercises: ["ランニング", "ウォーキング"],
+  },
+  {
+    area: "胸",
+    equipment: "アジャスタブルベンチ",
+    muscles: "胸・肩・腕",
+    details: "4台",
+    exercises: ["ダンベルベンチプレス", "インクラインダンベルプレス", "ダンベルフライ"],
+  },
+  {
+    area: "全身",
+    equipment: "パワーラック",
+    muscles: "全身",
+    details: "3台",
+    exercises: ["スクワット", "ベンチプレス", "デッドリフト", "オーバーヘッドプレス"],
+  },
+  {
+    area: "全身",
+    equipment: "スミスマシン垂直",
+    muscles: "全身",
+    details: "1台",
+    exercises: ["スミスマシンスクワット", "スミスマシンベンチプレス", "スミスマシンショルダープレス"],
+  },
+  {
+    area: "腕",
+    equipment: "シーテッドアームカール",
+    muscles: "腕",
+    details: "1台",
+    exercises: ["シーテッドアームカール"],
+  },
+  {
+    area: "背中",
+    equipment: "アイソラテラル・DYロー",
+    muscles: "背中",
+    details: "1台",
+    exercises: ["アイソラテラル・DYロー"],
+  },
+  {
+    area: "背中",
+    equipment: "アイソラテラル・ワイドプルダウン",
+    muscles: "背中",
+    details: "1台",
+    exercises: ["アイソラテラル・ワイドプルダウン"],
+  },
+  {
+    area: "背中",
+    equipment: "アイソラテラル・フロントプルダウン",
+    muscles: "背中",
+    details: "1台",
+    exercises: ["アイソラテラル・フロントプルダウン"],
+  },
+  {
+    area: "胸",
+    equipment: "アイソラテラル・ワイド・チェスト",
+    muscles: "胸",
+    details: "1台",
+    exercises: ["アイソラテラル・ワイド・チェスト"],
+  },
+  {
+    area: "胸",
+    equipment: "アイソラテラル・インクライン・プレス",
+    muscles: "胸",
+    details: "1台",
+    exercises: ["アイソラテラル・インクライン・プレス"],
+  },
+  {
+    area: "脚",
+    equipment: "リニア・レッグ・プレス",
+    muscles: "脚",
+    details: "1台",
+    exercises: ["リニア・レッグ・プレス"],
+  },
+  {
+    area: "全身",
+    equipment: "ダンベル",
+    muscles: "全身",
+    details: "1kg〜10kg・12kg〜50kg",
+    exercises: ["ダンベルプレス", "ダンベルロウ", "ダンベルカール", "ダンベルショルダープレス", "ダンベルランジ"],
+  },
+  {
+    area: "全身",
+    equipment: "ケーブルマシン",
+    muscles: "全身",
+    details: "1台",
+    exercises: ["ケーブルフライ", "ケーブルロウ", "ケーブルカール", "トライセプスプレスダウン", "フェイスプル"],
+  },
+  {
+    area: "ケア",
+    equipment: "ストレッチマット",
+    muscles: "回復・柔軟性",
+    details: "3枚",
+    exercises: ["ストレッチ", "モビリティ"],
+  },
+  {
+    area: "ケア",
+    equipment: "ストレートポール",
+    muscles: "回復・姿勢",
+    details: "2本",
+    exercises: ["ストレートポール"],
+  },
+  {
+    area: "体幹",
+    equipment: "腹筋ローラー",
+    muscles: "腹部・体幹",
+    details: "1個",
+    exercises: ["アブローラー"],
+  },
+  {
+    area: "ケア",
+    equipment: "筋膜ローラー",
+    muscles: "回復",
+    details: "1本",
+    exercises: ["筋膜リリース"],
+  },
 ];
 
 const form = document.querySelector("#workoutForm");
@@ -136,7 +354,7 @@ function calculateVolume(workout) {
 }
 
 function selectedEquipment() {
-  return workoutPresets.find((item) => item.equipment === fields.equipment.value);
+  return workoutPresets.find((item) => item.area === fields.area.value && item.equipment === fields.equipment.value);
 }
 
 function fillSelect(select, values) {
@@ -174,7 +392,7 @@ function renderGuide() {
     card.innerHTML = `
       <span>${item.area}</span>
       <h3>${item.equipment}</h3>
-      <p>${item.muscles}</p>
+      <p>${[item.muscles, item.details].filter(Boolean).join("・")}</p>
     `;
     guide.append(card);
   });
