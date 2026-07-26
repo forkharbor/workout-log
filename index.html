@@ -6,7 +6,7 @@
     <title>筋トレ記録</title>
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="apple-touch-icon" href="logo.png">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=20260727-compact">
   </head>
   <body>
     <main class="app-shell">
@@ -89,14 +89,6 @@
             <button class="primary-button" type="submit" id="submitButton">記録する</button>
           </form>
 
-          <section class="panel equipment-panel">
-            <div class="panel-heading">
-              <h2>種目プリセット</h2>
-            </div>
-            <p class="source-note">よく使う種目に加えて、エニタイムフィットネス東戸塚店の掲載設備をすべて登録しています。台数・重量範囲は店舗公式情報に基づきます。</p>
-            <div id="equipmentGuide" class="equipment-guide"></div>
-          </section>
-
           <section class="panel history-panel">
             <div class="panel-heading">
               <h2>履歴</h2>
@@ -107,6 +99,17 @@
             </div>
             <div id="historyList" class="history-list" aria-live="polite"></div>
           </section>
+
+          <details class="panel equipment-panel">
+            <summary class="preset-summary">
+              <span>種目プリセット</span>
+              <small>東戸塚店の設備一覧を表示</small>
+            </summary>
+            <div class="preset-content">
+              <p class="source-note">よく使う種目に加えて、エニタイムフィットネス東戸塚店の掲載設備をすべて登録しています。台数・重量範囲は店舗公式情報に基づきます。</p>
+              <div id="equipmentGuide" class="equipment-guide"></div>
+            </div>
+          </details>
         </section>
       </section>
     </main>
@@ -129,6 +132,6 @@
       </article>
     </template>
 
-    <script src="app.js"></script>
+    <script src="app.js?v=20260727-equipment"></script>
   </body>
 </html>
