@@ -529,20 +529,55 @@ time {
 @media (max-width: 760px) {
   .app-shell {
     width: min(100% - 20px, 620px);
-    padding: 18px 0;
+    padding: 10px 0;
   }
 
   .topbar {
     display: grid;
-    align-items: stretch;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 8px;
   }
 
   .today-card {
-    text-align: left;
+    min-width: 96px;
+    padding: 10px;
+    text-align: right;
   }
 
   h1 {
-    font-size: 2.45rem;
+    font-size: 2.1rem;
+  }
+
+  .store-meta {
+    display: none;
+  }
+
+  .today-card span {
+    font-size: 0.75rem;
+  }
+
+  .today-card strong {
+    font-size: 1.3rem;
+  }
+
+  .summary-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  .metric {
+    min-height: 76px;
+    padding: 10px;
+  }
+
+  .metric span {
+    font-size: 0.72rem;
+  }
+
+  .metric strong {
+    font-size: 1.05rem;
+    line-height: 1.25;
   }
 
   .history-day-heading {
@@ -550,21 +585,36 @@ time {
     gap: 3px;
   }
 
-  .summary-grid,
-  .equipment-guide,
-  .input-row,
-  .input-row.two {
+  .equipment-guide {
     grid-template-columns: 1fr;
+  }
+
+  .input-row {
+    gap: 6px;
+  }
+
+  .input-row.two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  label {
+    gap: 5px;
+    font-size: 0.82rem;
+  }
+
+  input,
+  select {
+    padding: 0 8px;
   }
 }
 
 @media (max-width: 500px) {
   h1 {
-    font-size: 2.1rem;
+    font-size: 1.85rem;
   }
 
   .metric strong {
-    font-size: 1.45rem;
+    font-size: 1rem;
   }
 
   .history-panel .panel-heading {
