@@ -6,7 +6,7 @@
     <title>筋トレ記録</title>
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="apple-touch-icon" href="logo.png">
-    <link rel="stylesheet" href="styles.css?v=20260731-compact">
+    <link rel="stylesheet" href="styles.css?v=20260731-reps-only">
   </head>
   <body>
     <main class="app-shell">
@@ -15,7 +15,7 @@
           <div>
             <p class="eyebrow">Training Log</p>
             <h1>筋トレ記録</h1>
-            <p class="store-meta">今日の種目、重量、回数をシンプルに残すログ</p>
+            <p class="store-meta">今日の種目と回数だけを残すシンプルなログ</p>
           </div>
           <div class="today-card">
             <span id="todayLabel"></span>
@@ -25,23 +25,23 @@
 
         <section class="summary-grid" aria-label="サマリー">
           <article class="metric">
-            <span>今週の合計</span>
-            <strong id="weeklyVolume">0 kg</strong>
+            <span>今週の回数</span>
+            <strong id="weeklyReps">0回</strong>
           </article>
           <article class="metric">
             <span>直近の種目数</span>
             <strong id="equipmentCount">0</strong>
           </article>
           <article class="metric">
-            <span>自己ベスト</span>
-            <strong id="bestLift">-</strong>
+            <span>最高回数</span>
+            <strong id="bestReps">-</strong>
           </article>
         </section>
 
         <section class="content-grid">
           <form id="workoutForm" class="panel entry-panel">
             <div class="panel-heading">
-              <h2 id="formTitle">セット記録</h2>
+              <h2 id="formTitle">トレーニング記録</h2>
               <button class="icon-button" type="button" id="clearForm" title="入力をクリア" aria-label="入力をクリア">↺</button>
             </div>
 
@@ -66,20 +66,10 @@
               <select id="exerciseInput" required></select>
             </label>
 
-            <div class="input-row">
-              <label>
-                重量 kg
-                <input type="number" id="weightInput" min="0" step="0.5" placeholder="60" required>
-              </label>
-              <label>
-                回数
-                <input type="number" id="repsInput" min="1" step="1" placeholder="10" required>
-              </label>
-              <label>
-                セット
-                <input type="number" id="setsInput" min="1" step="1" value="3" required>
-              </label>
-            </div>
+            <label>
+              回数
+              <input type="number" id="repsInput" min="1" step="1" placeholder="10" required>
+            </label>
 
             <label>
               メモ
@@ -132,6 +122,6 @@
       </article>
     </template>
 
-    <script src="app.js?v=20260727-equipment"></script>
+    <script src="app.js?v=20260731-reps-only"></script>
   </body>
 </html>

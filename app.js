@@ -287,9 +287,7 @@ const fields = {
   area: document.querySelector("#areaInput"),
   equipment: document.querySelector("#equipmentInput"),
   exercise: document.querySelector("#exerciseInput"),
-  weight: document.querySelector("#weightInput"),
   reps: document.querySelector("#repsInput"),
-  sets: document.querySelector("#setsInput"),
   note: document.querySelector("#noteInput"),
 };
 
@@ -345,14 +343,6 @@ function isThisWeek(dateString) {
   return date >= start && date < end;
 }
 
-function formatKg(value) {
-  return `${Number(value).toLocaleString("ja-JP", { maximumFractionDigits: 1 })} kg`;
-}
-
-function calculateVolume(workout) {
-  return Number(workout.weight) * Number(workout.reps) * Number(workout.sets);
-}
-
 function selectedEquipment() {
   return workoutPresets.find((item) => item.area === fields.area.value && item.equipment === fields.equipment.value);
 }
@@ -400,16 +390,16 @@ function renderGuide() {
 
 function updateSummary() {
   const weeklyWorkouts = workouts.filter((workout) => isThisWeek(workout.date));
-  const weeklyVolume = weeklyWorkouts.reduce((total, workout) => total + calculateVolume(workout), 0);
+  const weeklyReps = weeklyWorkouts.reduce((total, workout) => total + Number(workout.reps || 0), 0);
   const latestDate = workouts[0]?.date;
   const latestEquipment = new Set(workouts.filter((workout) => workout.date === latestDate).map((workout) => workout.equipment || workout.exercise));
-  const best = workouts.reduce((currentBest, workout) => (!currentBest || Number(workout.weight) > Number(currentBest.weight) ? workout : currentBest), null);
+  const best = workouts.reduce((currentBest, workout) => (!currentBest || Number(workout.reps) > Number(currentBest.reps) ? workout : currentBest), null);
 
   document.querySelector("#todayLabel").textContent = dateFormatter.format(new Date());
   document.querySelector("#weekCount").textContent = `${weeklyWorkouts.length}回`;
-  document.querySelector("#weeklyVolume").textContent = formatKg(weeklyVolume);
+  document.querySelector("#weeklyReps").textContent = `${weeklyReps.toLocaleString("ja-JP")}回`;
   document.querySelector("#equipmentCount").textContent = latestEquipment.size;
-  document.querySelector("#bestLift").textContent = best ? `${best.exercise} ${formatKg(best.weight)}` : "-";
+  document.querySelector("#bestReps").textContent = best ? `${best.exercise} ${best.reps}回` : "-";
 }
 
 function getFilteredWorkouts() {
@@ -423,7 +413,7 @@ function renderHistory() {
   if (items.length === 0) {
     const empty = document.createElement("div");
     empty.className = "empty-state";
-    empty.textContent = activeFilter === "week" ? "今週の記録はまだありません。" : "最初のセットを記録しましょう。";
+    empty.textContent = activeFilter === "week" ? "今週の記録はまだありません。" : "最初のトレーニングを記録しましょう。";
     historyList.append(empty);
     return;
   }
@@ -436,13 +426,13 @@ function renderHistory() {
 
   [...workoutsByDate.entries()].forEach(([dateString, dayWorkouts], dayIndex) => {
     const day = document.createElement("section");
-    const dayVolume = dayWorkouts.reduce((total, workout) => total + calculateVolume(workout), 0);
+    const dayReps = dayWorkouts.reduce((total, workout) => total + Number(workout.reps || 0), 0);
     day.className = "history-day";
     day.dataset.dayColor = dayIndex % 4;
     day.innerHTML = `
       <div class="history-day-heading">
         <h3>${fullDateFormatter.format(new Date(`${dateString}T00:00:00`))}</h3>
-        <span>${dayWorkouts.length}件・合計 ${formatKg(dayVolume)}</span>
+        <span>${dayWorkouts.length}件・合計 ${dayReps.toLocaleString("ja-JP")}回</span>
       </div>
       <div class="history-day-items"></div>
     `;
@@ -454,11 +444,7 @@ function renderHistory() {
       node.querySelector("time").remove();
       node.querySelector("h3").textContent = workout.exercise;
       node.querySelector(".machine-name").textContent = [workout.area, workout.equipment].filter(Boolean).join(" / ");
-      node.querySelector(".workout-stats").innerHTML = `
-        <span>${formatKg(workout.weight)}</span>
-        <span>${workout.reps}回 x ${workout.sets}セット</span>
-        <span>合計 ${formatKg(calculateVolume(workout))}</span>
-      `;
+      node.querySelector(".workout-stats").innerHTML = `<span>${workout.reps}回</span>`;
 
       const note = node.querySelector(".workout-note");
       if (workout.note) {
@@ -475,10 +461,9 @@ function renderHistory() {
 function resetForm() {
   editingId = null;
   form.reset();
-  formTitle.textContent = "セット記録";
+  formTitle.textContent = "トレーニング記録";
   submitButton.textContent = "記録する";
   fields.date.value = getTodayString();
-  fields.sets.value = 3;
   populateAreas();
 }
 
@@ -500,9 +485,7 @@ function editWorkout(workout) {
   selectValue(fields.equipment, workout.equipment);
   populateExercises();
   selectValue(fields.exercise, workout.exercise);
-  fields.weight.value = workout.weight;
   fields.reps.value = workout.reps;
-  fields.sets.value = workout.sets;
   fields.note.value = workout.note || "";
   formTitle.textContent = "履歴を編集";
   submitButton.textContent = "変更を保存";
@@ -519,9 +502,7 @@ form.addEventListener("submit", (event) => {
     area: fields.area.value,
     equipment: fields.equipment.value,
     exercise: fields.exercise.value,
-    weight: Number(fields.weight.value),
     reps: Number(fields.reps.value),
-    sets: Number(fields.sets.value),
     note: fields.note.value.trim(),
     createdAt: previousWorkout?.createdAt || new Date().toISOString(),
   };
