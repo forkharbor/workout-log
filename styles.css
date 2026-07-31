@@ -69,22 +69,6 @@ button {
   gap: 18px;
 }
 
-.eyebrow {
-  margin: 0 0 2px;
-  color: var(--accent-dark);
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.store-meta {
-  margin-top: 5px;
-  color: var(--muted);
-  font-size: 0.95rem;
-  font-weight: 700;
-}
-
 h1,
 h2,
 h3,
@@ -93,8 +77,22 @@ p {
 }
 
 h1 {
-  font-size: clamp(1.75rem, 3vw, 2.35rem);
-  line-height: 1.08;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-size: clamp(1.65rem, 2.7vw, 2.15rem);
+  font-weight: 850;
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+
+h1::before {
+  width: 7px;
+  height: 30px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-dark));
+  content: "";
+  box-shadow: 0 5px 14px rgba(18, 164, 122, 0.25);
 }
 
 .today-card,
@@ -592,10 +590,6 @@ time {
 
   h1 {
     font-size: 2.1rem;
-  }
-
-  .store-meta {
-    display: none;
   }
 
   .today-card span {
