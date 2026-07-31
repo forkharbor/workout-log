@@ -446,8 +446,8 @@ textarea:focus {
 
 .workout-item {
   display: grid;
-  gap: 7px;
-  padding: 10px;
+  gap: 5px;
+  padding: 9px 10px;
   border: 1px solid var(--line);
   border-left: 5px solid var(--day-accent);
   border-radius: 8px;
@@ -470,23 +470,23 @@ time {
 }
 
 .machine-name {
-  margin-top: 3px;
-  font-size: 0.9rem;
+  margin-top: 2px;
+  font-size: 0.82rem;
 }
 
 .history-actions {
   display: flex;
-  gap: 8px;
+  gap: 5px;
 }
 
 .edit-button,
 .delete-button {
   flex: 0 0 auto;
-  height: 34px;
+  height: 30px;
 }
 
 .edit-button {
-  padding: 0 12px;
+  padding: 0 9px;
   background: #e6f6fc;
   color: var(--accent-dark);
   font-size: 0.86rem;
@@ -494,7 +494,7 @@ time {
 }
 
 .delete-button {
-  width: 34px;
+  width: 30px;
   background: #f8e7e7;
   color: var(--danger);
   font-size: 1.25rem;
@@ -508,7 +508,7 @@ time {
 }
 
 .workout-stats span {
-  padding: 5px 8px;
+  padding: 4px 7px;
   border-radius: 8px;
   background: #e6f6fc;
   color: var(--accent-dark);
@@ -529,6 +529,17 @@ time {
   border-radius: 8px;
   color: var(--muted);
   text-align: center;
+}
+
+@media (min-width: 620px) {
+  .history-day-items {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .workout-item h3 {
+    font-size: 1rem;
+    line-height: 1.25;
+  }
 }
 
 @media (max-width: 900px) {
