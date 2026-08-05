@@ -160,7 +160,7 @@ h1::before {
 
 .content-grid {
   display: grid;
-  grid-template-columns: minmax(300px, 390px) minmax(0, 1fr);
+  grid-template-columns: minmax(340px, 480px) minmax(0, 1fr);
   gap: 12px;
   align-items: start;
   grid-column: 1 / -1;
@@ -169,6 +169,91 @@ h1::before {
 .entry-panel {
   gap: 9px;
   padding: 14px;
+}
+
+.equipment-fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.equipment-fieldset legend {
+  padding: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.picker-help {
+  margin-top: -17px;
+  color: var(--muted);
+  font-size: 0.76rem;
+  text-align: right;
+}
+
+.equipment-picker {
+  display: grid;
+  gap: 10px;
+  max-height: 340px;
+  margin-top: 7px;
+  padding: 10px;
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #f7faf9;
+}
+
+.equipment-picker-group {
+  display: grid;
+  gap: 6px;
+}
+
+.equipment-picker-group h3 {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.equipment-choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.equipment-choice {
+  min-height: 34px;
+  padding: 6px 10px;
+  border: 1px solid #cbdcdf;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ink);
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1.2;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+.equipment-choice:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.equipment-choice[aria-pressed="true"] {
+  border-color: var(--accent-dark);
+  background: var(--accent-dark);
+  color: #fff;
+  box-shadow: 0 5px 14px rgba(8, 119, 88, 0.18);
+}
+
+.selection-status {
+  margin-top: 6px;
+  color: var(--accent-dark);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.selection-status.error {
+  color: var(--danger);
 }
 
 .history-panel {
@@ -573,6 +658,10 @@ time {
     gap: 9px;
     padding: 10px;
     border-radius: 18px;
+  }
+
+  .equipment-picker {
+    max-height: 300px;
   }
 
   .topbar {

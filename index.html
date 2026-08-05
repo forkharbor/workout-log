@@ -6,7 +6,7 @@
     <title>筋トレ記録</title>
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="apple-touch-icon" href="logo.png">
-    <link rel="stylesheet" href="styles.css?v=20260731-minimal-header">
+    <link rel="stylesheet" href="styles.css?v=20260805-equipment-memo">
   </head>
   <body>
     <main class="app-shell">
@@ -17,29 +17,29 @@
           </div>
           <div class="today-card">
             <span id="todayLabel"></span>
-            <strong id="weekCount">0回</strong>
+            <strong id="weekCount">0日</strong>
           </div>
         </header>
 
         <section class="summary-grid" aria-label="サマリー">
           <article class="metric">
-            <span>今週の回数</span>
-            <strong id="weeklyReps">0回</strong>
+            <span>今週の記録</span>
+            <strong id="weeklyDays">0日</strong>
           </article>
           <article class="metric">
-            <span>直近の種目数</span>
+            <span>直近の器具</span>
             <strong id="equipmentCount">0</strong>
           </article>
           <article class="metric">
-            <span>最高回数</span>
-            <strong id="bestReps">-</strong>
+            <span>今週の器具</span>
+            <strong id="weeklyEquipment">0</strong>
           </article>
         </section>
 
         <section class="content-grid">
           <form id="workoutForm" class="panel entry-panel">
             <div class="panel-heading">
-              <h2 id="formTitle">トレーニング記録</h2>
+              <h2 id="formTitle">やった器具をメモ</h2>
               <button class="icon-button" type="button" id="clearForm" title="入力をクリア" aria-label="入力をクリア">↺</button>
             </div>
 
@@ -48,33 +48,19 @@
               <input type="date" id="dateInput" required>
             </label>
 
-            <div class="input-row two">
-              <label>
-                部位
-                <select id="areaInput" required></select>
-              </label>
-              <label>
-                メニュー
-                <select id="equipmentInput" required></select>
-              </label>
-            </div>
-
-            <label>
-              種目
-              <select id="exerciseInput" required></select>
-            </label>
-
-            <label>
-              回数
-              <input type="number" id="repsInput" min="1" step="1" placeholder="10" required>
-            </label>
+            <fieldset class="equipment-fieldset">
+              <legend>やった器具</legend>
+              <p class="picker-help">複数選べます</p>
+              <div id="equipmentPicker" class="equipment-picker"></div>
+              <p id="selectionStatus" class="selection-status" aria-live="polite">0種類を選択中</p>
+            </fieldset>
 
             <label>
               メモ
-              <textarea id="noteInput" rows="3" placeholder="シート位置、グリップ、体調、次回の目標など"></textarea>
+              <textarea id="noteInput" rows="2" placeholder="ひとことだけ（任意）"></textarea>
             </label>
 
-            <button class="primary-button" type="submit" id="submitButton">記録する</button>
+            <button class="primary-button" type="submit" id="submitButton">まとめて記録</button>
           </form>
 
           <section class="panel history-panel">
@@ -88,16 +74,6 @@
             <div id="historyList" class="history-list" aria-live="polite"></div>
           </section>
 
-          <details class="panel equipment-panel">
-            <summary class="preset-summary">
-              <span>種目プリセット</span>
-              <small>東戸塚店の設備一覧を表示</small>
-            </summary>
-            <div class="preset-content">
-              <p class="source-note">よく使う種目に加えて、エニタイムフィットネス東戸塚店の掲載設備をすべて登録しています。台数・重量範囲は店舗公式情報に基づきます。</p>
-              <div id="equipmentGuide" class="equipment-guide"></div>
-            </div>
-          </details>
         </section>
       </section>
     </main>
@@ -108,7 +84,6 @@
           <div>
             <time></time>
             <h3></h3>
-            <p class="machine-name"></p>
           </div>
           <div class="history-actions">
             <button class="edit-button" type="button">編集</button>
@@ -120,6 +95,6 @@
       </article>
     </template>
 
-    <script src="app.js?v=20260731-reps-only"></script>
+    <script src="app.js?v=20260805-equipment-memo"></script>
   </body>
 </html>
