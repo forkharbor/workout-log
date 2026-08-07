@@ -1,5 +1,17 @@
 const storageKey = "simple-workout-log-v1";
 
+const firebaseConfig = {
+  apiKey: "AIzaSyCfvqQWLB8NJqmaH0k2G0wPcbJJjz2Vu4A",
+  authDomain: "kaimemo-58bad.firebaseapp.com",
+  projectId: "kaimemo-58bad",
+  storageBucket: "kaimemo-58bad.firebasestorage.app",
+  messagingSenderId: "308069117698",
+  appId: "1:308069117698:web:c61a57853abb7e8ffb1c1b",
+};
+
+let workoutDocRef = null;
+let firestoreReady = false;
+
 const workoutPresets = [
   {
     area: "胸",
@@ -336,6 +348,55 @@ function loadWorkouts() {
 
 function saveWorkouts() {
   localStorage.setItem(storageKey, JSON.stringify(workouts));
+  if (firestoreReady && workoutDocRef) {
+    workoutDocRef.set({ list: workouts }).catch((error) => {
+      console.error("Firestoreへの保存に失敗しました。", error);
+    });
+  }
+}
+
+function normalizeWorkouts(stored) {
+  if (!Array.isArray(stored)) return [];
+  const normalized = stored.map((workout) => ({
+    ...workout,
+    id: workout.id == null ? crypto.randomUUID() : String(workout.id),
+    items: normalizeItems(workout),
+    note: workout.note || "",
+    createdAt: workout.createdAt || `${workout.date}T00:00:00.000Z`,
+  }));
+  normalized.sort((a, b) => b.date.localeCompare(a.date) || b.createdAt.localeCompare(a.createdAt));
+  return normalized;
+}
+
+function startFirestoreSync() {
+  if (typeof firebase === "undefined") {
+    console.warn("Firebaseを読み込めないため、端末内保存で動作します。");
+    return;
+  }
+
+  if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+  workoutDocRef = firebase.firestore().collection("data").doc("workout-log");
+  workoutDocRef.onSnapshot((snapshot) => {
+    if (!snapshot.exists) {
+      if (workouts.length > 0) {
+        workoutDocRef.set({ list: workouts }).catch((error) => {
+          console.error("Firestoreへの初期保存に失敗しました。", error);
+        });
+      }
+      firestoreReady = true;
+      return;
+    }
+
+    workouts = normalizeWorkouts(snapshot.data().list || []);
+    localStorage.setItem(storageKey, JSON.stringify(workouts));
+    firestoreReady = true;
+    if (editingId && !workouts.some((workout) => workout.id === editingId)) resetForm();
+    renderEquipmentPicker();
+    renderHistory();
+    updateSummary();
+  }, (error) => {
+    console.error("Firestoreとの同期に失敗しました。", error);
+  });
 }
 
 function startOfWeek(date) {
@@ -553,3 +614,4 @@ filterButtons.forEach((button) => {
 resetForm();
 updateSummary();
 renderHistory();
+startFirestoreSync();
