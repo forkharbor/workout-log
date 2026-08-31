@@ -69,3 +69,10 @@ textarea{min-height:42px;padding:7px}
   .weight-card{padding:11px 9px;gap:8px}.weight-card>div:first-child p{display:none}.weight-form{min-height:44px}.weight-stats{margin-top:2px}
   .equipment-picker{max-height:190px}.history-list{max-height:260px}
 }
+
+/* Simple three-choice exercise picker */
+.equipment-picker{max-height:none;background:transparent}
+.equipment-group h4{display:none}
+.equipment-choices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%}
+.equipment-choice{min-height:38px;white-space:normal}
+@media(max-width:600px){.equipment-picker{max-height:none}.equipment-choice{padding:6px 4px;font-size:.68rem}}
