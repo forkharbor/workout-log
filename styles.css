@@ -13,3 +13,59 @@
 @keyframes rewardPulse{to{transform:translateY(-2px);box-shadow:0 8px 24px rgba(35,122,88,.2)}}
 @media(max-width:850px){.progress-panel{grid-template-columns:1fr 1fr}.reward-card{grid-column:2;grid-row:1/3}.goal-details{grid-column:1/-1}}
 @media(max-width:600px){.progress-panel{grid-template-columns:1fr}.reward-card{grid-column:auto;grid-row:auto}.goal-details{grid-column:auto}}
+
+/* Compact layout */
+.app-shell{padding:10px 0 24px}
+.hero{padding:14px 20px}
+.eyebrow{font-size:.6rem}
+.hero h1{margin:2px 0;font-size:clamp(1.7rem,4vw,2.7rem)}
+.hero-goal strong{font-size:2rem;line-height:1}
+.progress-panel{gap:8px 16px;padding:11px 20px}
+.progress-copy strong{font-size:1.25rem;line-height:1.15}
+.progress-copy p{font-size:.72rem}
+.progress-track{height:8px}
+.reward-card{padding:8px 11px}
+.reward-card strong{margin:2px 0;font-size:.9rem;line-height:1.25}
+.reward-card p{font-size:.68rem}
+.goal-details summary{font-size:.78rem}
+.goal-timeline{margin-top:7px}
+.daily-date{margin:7px 0;padding:7px 13px}
+.daily-date input{height:34px}
+.zone{padding:16px}
+.zone-heading{margin-bottom:9px}
+.zone h2,.weight-card h2{font-size:1.45rem}
+.zone-number{width:27px;height:27px;font-size:.62rem}
+.zone-heading p{font-size:.78rem}
+.meal-layout,.exercise-layout{gap:8px}
+.meal-form,.workout-form,.history-panel,.policy-card{padding:11px}
+.meal-form,.workout-form{gap:9px}
+label,legend{font-size:.78rem}
+textarea{min-height:42px;padding:7px}
+.habit-grid{gap:5px}
+.habit-check span{padding:6px;font-size:.76rem}
+.primary-button{height:36px}
+.policy-card h3{margin:5px 0 7px;font-size:1rem}
+.policy-card ul{grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;font-size:.76rem}
+.weight-zone{padding:7px 0}
+.weight-card{gap:12px;padding:13px 20px}
+.weight-card>div:first-child p{font-size:.74rem}
+.weight-form input{height:46px;font-size:1.4rem}
+.weight-form b{top:13px}
+.weight-stats strong{margin-top:1px}
+.equipment-picker{max-height:230px;padding:7px;gap:7px}
+.equipment-choice{padding:5px 8px;font-size:.72rem}
+.history-list{max-height:330px;margin-top:8px}
+.workout-item{padding:8px}
+.empty-state{padding:28px 12px}
+
+@media(max-width:600px){
+  .hero{padding:12px 14px}.hero h1{font-size:1.75rem}.today-label{font-size:.72rem}.hero-goal strong{font-size:1.55rem}.hero-goal p{font-size:.68rem}
+  .progress-panel{padding:9px 12px;gap:7px}.progress-panel{grid-template-columns:minmax(0,1fr) 145px}.reward-card{grid-column:2;grid-row:1/3}.goal-details{grid-column:1/-1}.progress-copy strong{font-size:1.1rem}.reward-card p{display:none}
+  .daily-date{padding:5px 10px}.daily-date label{font-size:.76rem}.daily-date input{height:32px}
+  .zone{padding:12px 8px}.zone-heading{display:flex;align-items:center;margin-bottom:7px}.zone-heading p{display:none}.zone h2,.weight-card h2{font-size:1.28rem}
+  .meal-form,.workout-form,.history-panel,.policy-card{padding:9px}.meal-form,.workout-form{gap:7px}
+  .meal-layout,.exercise-layout{gap:7px}.habit-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.habit-check span{padding:6px 3px;font-size:.7rem}
+  .policy-card ul{grid-template-columns:repeat(3,minmax(0,1fr));padding-left:14px;font-size:.68rem}.policy-card h3{font-size:.9rem}
+  .weight-card{padding:11px 9px;gap:8px}.weight-card>div:first-child p{display:none}.weight-form{min-height:44px}.weight-stats{margin-top:2px}
+  .equipment-picker{max-height:190px}.history-list{max-height:260px}
+}
