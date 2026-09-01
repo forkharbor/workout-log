@@ -76,3 +76,13 @@ textarea{min-height:42px;padding:7px}
 .equipment-choices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%}
 .equipment-choice{min-height:38px;white-space:normal}
 @media(max-width:600px){.equipment-picker{max-height:none}.equipment-choice{padding:6px 4px;font-size:.68rem}}
+
+/* Saved meal history */
+.meal-history-panel{grid-column:1/-1;padding:18px}
+.meal-history-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:12px}
+.meal-history-item{display:grid;gap:7px;padding:12px;border:1px solid #d5c9b3;border-radius:10px;background:#fff}
+.meal-history-item>button{justify-self:start;padding:0;border:0;background:transparent;color:#9b642b;font-weight:900}
+.meal-history-note{color:var(--ink);font-size:.88rem;white-space:pre-wrap}
+.meal-history-habits{display:flex;flex-wrap:wrap;gap:5px}
+.meal-history-habits span{padding:4px 7px;border-radius:7px;background:#f6ead3;color:#78502a;font-size:.72rem;font-weight:800}
+@media(max-width:600px){.meal-history-panel{padding:9px}.meal-history-list{grid-template-columns:1fr}.meal-history-item{padding:9px}}
