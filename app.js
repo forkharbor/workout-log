@@ -5,7 +5,7 @@ const firebaseConfig = { apiKey: "AIzaSyCfvqQWLB8NJqmaH0k2G0wPcbJJjz2Vu4A", auth
 const goals = [[9,65.7],[10,65.3],[11,64.9],[12,64.5],[1,64.2],[2,63.9],[3,63.5],[4,63.2],[5,62.9],[6,62.5],[7,62.3],[8,61.9]];
 const habits = [["noJuice","ジュースなし"],["noSnacks","お菓子なし"],["lowCarb","炭水化物少な目"],["lowFruit","果物少な目"],["moreVeg","野菜多め"],["moreWater","水をたくさん"],["oneMeal","1日1食"]];
 const groups = {
-  "運動":["筋トレ","傾斜ウォーキング（Mリーグ）","週末テニス"]
+  "運動":["筋トレ","傾斜ウォーキング","週末テニス"]
 };
 const $ = (s) => document.querySelector(s);
 const fmt = new Intl.DateTimeFormat("ja-JP",{year:"numeric",month:"long",day:"numeric",weekday:"short"});
@@ -13,7 +13,8 @@ const shortFmt = new Intl.DateTimeFormat("ja-JP",{month:"short",day:"numeric",we
 let docRef=null, firestoreReady=false, editingId=null, activeFilter="all", selected=new Set();
 let workouts=loadWorkouts(), daily=loadDaily();
 function today(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;}
-function normalizeItems(w){if(Array.isArray(w.items))return w.items.filter(i=>i?.equipment).map(i=>({area:i.area||"その他",equipment:String(i.equipment)}));const e=w.equipment||w.exercise;return e?[{area:w.area||"その他",equipment:String(e)}]:[];}
+function normalizeEquipmentName(value){return String(value)==="傾斜ウォーキング（Mリーグ）"?"傾斜ウォーキング":String(value);}
+function normalizeItems(w){if(Array.isArray(w.items))return w.items.filter(i=>i?.equipment).map(i=>({area:i.area||"その他",equipment:normalizeEquipmentName(i.equipment)}));const e=w.equipment||w.exercise;return e?[{area:w.area||"その他",equipment:normalizeEquipmentName(e)}]:[];}
 function normalizeWorkouts(v){return (Array.isArray(v)?v:[]).map(w=>({...w,id:w.id==null?crypto.randomUUID():String(w.id),items:normalizeItems(w),note:w.note||"",createdAt:w.createdAt||`${w.date}T00:00:00.000Z`})).sort((a,b)=>b.date.localeCompare(a.date)||b.createdAt.localeCompare(a.createdAt));}
 function loadWorkouts(){try{return normalizeWorkouts(JSON.parse(localStorage.getItem(workoutStorageKey)||"[]")).filter(w=>w.date>=startDate);}catch{return [];}}
 function loadDaily(){try{const v=JSON.parse(localStorage.getItem(dailyStorageKey)||"{}");return v&&typeof v==="object"&&!Array.isArray(v)?v:{};}catch{return {};}}
@@ -26,7 +27,9 @@ function renderHabits(){$("#habitChecks").innerHTML=habits.map(([k,l])=>`<label 
 function loadDate(){const r=record();$("#mealNote").value=r.mealNote||"";$("#weightInput").value=r.weight||"";document.querySelectorAll("#habitChecks input").forEach(i=>i.checked=Boolean(r.habits?.[i.value]));if(!editingId)resetWorkout();dashboard();}
 function goal(){const m=new Date(`${$("#dailyDate").value}T00:00:00`).getMonth()+1;return goals.find(g=>g[0]===m)||goals[0];}
 function latestWeight(){return Object.entries(daily).filter(([,r])=>Number(r.weight)).sort(([a],[b])=>b.localeCompare(a))[0]||null;}
-function dashboard(){const [m,g]=goal(),latest=latestWeight(),w=latest?Number(latest[1].weight):null,achieved=Boolean(w&&w<=g);$("#monthlyGoalLabel").textContent=`${m}月末の目標`;$("#monthlyGoalValue").textContent=`${g.toFixed(1)} kg`;$("#latestWeight").textContent=w?`${w.toFixed(1)}kg`:"--";$("#weightRemaining").textContent=w?(achieved?"達成！":`${(w-g).toFixed(1)}kg`):"--";$("#weightDays").textContent=`${Object.values(daily).filter(r=>Number(r.weight)).length}日`;$("#goalMessage").textContent=w?(achieved?"今月の目標達成。ご褒美発動！":`あと ${(w-g).toFixed(1)}kg で今月の目標`):"体重を記録すると進捗が表示されます";$("#goalProgress").style.width=w?`${Math.max(4,Math.min(100,((66-w)/4.1)*100))}%`:"0%";$("#rewardCard").classList.toggle("achieved",achieved);}
+function offsetDate(date,days){const d=new Date(`${date}T00:00:00`);d.setDate(d.getDate()+days);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;}
+function weightOn(date){const w=Number(daily[date]?.weight);return w?`${w.toFixed(1)}kg`:"--";}
+function dashboard(){const [m,g]=goal(),latest=latestWeight(),w=latest?Number(latest[1].weight):null,selectedDate=$("#dailyDate").value,achieved=Boolean(w&&w<=g);$("#monthlyGoalLabel").textContent=`${m}月末の目標`;$("#monthlyGoalValue").textContent=`${g.toFixed(1)} kg`;$("#previousWeight").textContent=weightOn(offsetDate(selectedDate,-1));$("#twoDaysAgoWeight").textContent=weightOn(offsetDate(selectedDate,-2));$("#weightRemaining").textContent=w?(achieved?"達成！":`${(w-g).toFixed(1)}kg`):"--";$("#weightDays").textContent=`${Object.values(daily).filter(r=>Number(r.weight)).length}日`;$("#goalMessage").textContent=w?(achieved?"今月の目標達成。ご褒美発動！":`あと ${(w-g).toFixed(1)}kg で今月の目標`):"体重を記録すると進捗が表示されます";$("#goalProgress").style.width=w?`${Math.max(4,Math.min(100,((66-w)/4.1)*100))}%`:"0%";$("#rewardCard").classList.toggle("achieved",achieved);}
 function equipment(){const map=new Map();Object.entries(groups).forEach(([a,names])=>names.forEach(e=>map.set(`${a}::${e}`,{area:a,equipment:e})));workouts.flatMap(w=>w.items).forEach(i=>map.set(`${i.area}::${i.equipment}`,i));return map;}
 function renderPicker(){const by=new Map();equipment().forEach((v,k)=>{if(!by.has(v.area))by.set(v.area,[]);by.get(v.area).push([k,v]);});$("#equipmentPicker").innerHTML="";by.forEach((items,a)=>{const section=document.createElement("section");section.className="equipment-group";section.innerHTML=`<h4>${a}</h4><div class="equipment-choices"></div>`;items.forEach(([k,v])=>{const b=document.createElement("button");b.type="button";b.dataset.key=k;b.className="equipment-choice";b.textContent=v.equipment;b.setAttribute("aria-pressed",String(selected.has(k)));section.querySelector("div").append(b);});$("#equipmentPicker").append(section);});$("#selectionStatus").textContent=`${selected.size}種類を選択中`;}
 function startWeek(){const d=new Date(),diff=d.getDay()===0?-6:1-d.getDay();d.setDate(d.getDate()+diff);d.setHours(0,0,0,0);return d;}
