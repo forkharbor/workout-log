@@ -24,7 +24,7 @@ function saved(){const s=$("#saveStatus");s.textContent="共有保存しまし�
 function record(){return daily[$("#dailyDate").value]||{mealNote:"",habits:{},weight:null};}
 function updateRecord(patch){const date=$("#dailyDate").value;daily[date]={...record(),...patch,updatedAt:new Date().toISOString()};saveDaily();dashboard();}
 function renderHabits(){$("#habitChecks").innerHTML=habits.map(([k,l])=>`<label class="habit-check"><input type="checkbox" value="${k}"><span>${l}</span></label>`).join("");}
-function loadDate(){const r=record();$("#mealNote").value=r.mealNote||"";$("#weightInput").value=r.weight||"";document.querySelectorAll("#habitChecks input").forEach(i=>i.checked=Boolean(r.habits?.[i.value]));if(!editingId)resetWorkout();dashboard();}
+function loadDate(){const r=record(),date=new Date(`${$("#dailyDate").value}T00:00:00`);$("#mealDateLabel").textContent=`${fmt.format(date)}の食事`;$("#mealNote").value=r.mealNote||"";$("#weightInput").value=r.weight||"";document.querySelectorAll("#habitChecks input").forEach(i=>i.checked=Boolean(r.habits?.[i.value]));if(!editingId)resetWorkout();dashboard();}
 function goal(){const m=new Date(`${$("#dailyDate").value}T00:00:00`).getMonth()+1;return goals.find(g=>g[0]===m)||goals[0];}
 function latestWeight(){return Object.entries(daily).filter(([,r])=>Number(r.weight)).sort(([a],[b])=>b.localeCompare(a))[0]||null;}
 function offsetDate(date,days){const d=new Date(`${date}T00:00:00`);d.setDate(d.getDate()+days);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;}
