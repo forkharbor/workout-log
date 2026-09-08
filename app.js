@@ -5,7 +5,7 @@ const firebaseConfig = { apiKey: "AIzaSyCfvqQWLB8NJqmaH0k2G0wPcbJJjz2Vu4A", auth
 const goals = [[9,65.7],[10,65.3],[11,64.9],[12,64.5],[1,64.2],[2,63.9],[3,63.5],[4,63.2],[5,62.9],[6,62.5],[7,62.3],[8,61.9]];
 const habits = [["noJuice","ジュースなし"],["noSnacks","お菓子なし"],["lowCarb","炭水化物少な目"],["lowFruit","果物少な目"],["moreVeg","野菜多め"],["moreWater","水をたくさん"],["oneMeal","1日1食"]];
 const groups = {
-  "運動":["筋トレ","傾斜ウォーキング","週末テニス"]
+  "運動":["筋トレ","傾斜ウォーキング","週末テニス","その他"]
 };
 const $ = (s) => document.querySelector(s);
 const fmt = new Intl.DateTimeFormat("ja-JP",{year:"numeric",month:"long",day:"numeric",weekday:"short"});
