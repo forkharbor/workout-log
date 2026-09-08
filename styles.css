@@ -86,3 +86,4 @@ textarea{min-height:42px;padding:7px}
 .meal-history-habits{display:flex;flex-wrap:wrap;gap:5px}
 .meal-history-habits span{padding:4px 7px;border-radius:7px;background:#f6ead3;color:#78502a;font-size:.72rem;font-weight:800}
 @media(max-width:600px){.meal-history-panel{padding:9px}.meal-history-list{grid-template-columns:1fr}.meal-history-item{padding:9px}}
+.weight-trend{margin-top:8px;padding:14px}.weight-chart svg{display:block;width:100%;max-height:280px}.weight-chart p{font-size:.78rem;color:var(--muted);margin:8px 0}.weight-trend summary{cursor:pointer;color:var(--green);font-weight:800}.weight-table{max-height:260px;overflow:auto}.weight-table table{width:100%;border-collapse:collapse;font-size:.85rem}.weight-table th,.weight-table td{padding:8px;text-align:left;border-bottom:1px solid var(--line)}
